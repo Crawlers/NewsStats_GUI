@@ -14,6 +14,23 @@ exports.userlist = function(req, res) {
     });
 };
 
-exports.statistics = function(req, res) {
-  res.render('statistics',{ title: 'Statistics' });
+exports.mapView = function(req, res) {
+  if (req.xhr)
+	res.render('mapView',{ title: 'map view' });
+  else
+    res.render('error');
+}
+
+exports.graphView = function(req, res) {
+  if (req.xhr)
+    res.render('graphView',{ title: 'graph view' });
+  else
+    res.render('error');
+}
+
+exports.home = function(req, res) {
+  if (req.xhr)
+    res.render('home',{ title: 'home' });
+  else
+    res.render('error');
 }
