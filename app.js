@@ -37,6 +37,7 @@ app.get('/', routes.index);
 app.get('/home', routes.home);
 app.get('/mapView', routes.mapView);
 app.get('/graphView',routes.graphView);
+app.get('/predictions',routes.predictions);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

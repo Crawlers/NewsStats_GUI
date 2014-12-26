@@ -3,20 +3,30 @@ exports.index = function(req, res){
   res.render('index', { title: 'NewsStats' });
 };
 
-/* GET Hello World page. */
-exports.userlist = function(req, res) {
+exports.predictions = function(req, res) {
     var db = req.db;
-    var collection = db.get('usercollection');
-    collection.find({},{},function(e,docs){
-        res.render('userlist', {
-            "userlist" : docs
-        });
-    });
+	var collection = db.get('crimes');
+	collection.col.aggregate([
+		  {$group: { _id: "$district",  count: {$sum: 1}}}
+		],function(e,docs){
+			res.render('predictions', {
+				"crimes" : docs
+			});
+	});
 };
 
 exports.mapView = function(req, res) {
-  if (req.xhr)
-	res.render('mapView',{ title: 'map view' });
+  if (req.xhr) {
+    var db = req.db;
+	var collection = db.get('crimes');
+	collection.col.aggregate([
+		  {$group: { _id: "$district",  count: {$sum: 1}}}
+		],function(e,docs){
+			res.render('mapView', {
+				"crimesByDistrict" : docs
+			});
+	});
+  }
   else
     res.render('error');
 }

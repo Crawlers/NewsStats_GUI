@@ -4,6 +4,14 @@ body {
 }
 
 #container {
-  margin-top: 100px;
-  position: absolute;
+  top: 50px;
+  position: fixed;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.home ul{
+color: #444;
+list-style-type: none;
 }
