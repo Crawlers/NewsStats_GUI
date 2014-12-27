@@ -1,56 +1,28 @@
 <link rel="stylesheet" href="/stylesheets/foundation/foundation.css">
 <script type="text/javascript" src="/javascripts/fusioncharts/fusioncharts.js"></script>
 <script type="text/javascript" src="/javascripts/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
-<script type="text/javascript" src="/javascripts/mapView.js"></script>
 <script>
-FusionCharts.ready(function(){
-    var populationMap = new FusionCharts({
-        type: 'maps/srilanka',
-        renderAt: 'mapContainer',
-        width: '600',
-        height: '400',
-        dataFormat: 'json',
-        dataSource: {
-            "chart": {
-                "caption": "Crime Statistics",
-                "theme": "fint",
-                "formatNumberScale": "0",
-				"showBorder": 1,
-				"nullEntityColor": "#E0F0E0"
-            },
-            "colorrange": {
-                "color": [{
-                    "minvalue": "0",
-                    "maxvalue": "100",
-                    "code": "#D0DFA3",
-                    "displayValue": "Below 100M"
-                }, {
-                    "minvalue": "100",
-                    "maxvalue": "500",
-                    "code": "#D0DFA3",
-                    "displayValue": "100-500M"
-                }, {
-                    "minvalue": "500",
-                    "maxvalue": "1000",
-                    "code": "#B0BF92",
-                    "displayValue": "500-1000M"
-                }, {
-                    "minvalue": "1000",
-                    "maxvalue": "5000",
-                    "code": "#91AF64",
-                    "displayValue": "Above 1B"
-                }]
-            },
-            "data": [
-			<% for (var i=0; i<crimesByDistrict.length; i++) { %>
-			   {
-                "id": 'LK.' + districtCodes["<%= crimesByDistrict[i]._id %>"],
-                "value": "<%= crimesByDistrict[i].count %>"
-               },
-			<% } %>
-			]
-        }
-    }).render();
-});
+var crimesByDistrict = <%- JSON.stringify(crimesByDistrict) %>;
+var crimes = <%- JSON.stringify(crimes) %>;
 </script>
+<script type="text/javascript" src="/javascripts/mapView.js"></script>
+
+
 <div id="mapContainer"></div>
+<table>
+<tr></tr>
+<tr><td>
+<form id="form_crime_types" name="control_form">
+<h3>Crime Type</h3>
+<div id="controls_type" class="controlpanel">
+</div>
+</form>
+</td><td></td><td>
+<form id="form_crime_years" name="control_form">
+<h3>Year</h3>
+<div id="controls_year" class="controlpanel">
+</div>
+</form>
+</td>
+</tr>
+</table>

@@ -1,6 +1,13 @@
+
+
 body {
    margin: 0;
    padding: 0;
+}
+
+#mapContainer {
+  float: left;
+  color:#444;
 }
 
 #container {
@@ -9,6 +16,17 @@ body {
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
+}
+
+#container table tr{
+   height: 100px;
+   vertical-align: text-top;
+}
+
+#container table td{
+   min-width: 100px;
+   vertical-align: text-top;
+   color:#444;
 }
 
 .home ul{
