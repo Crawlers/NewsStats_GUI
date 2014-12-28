@@ -27,5 +27,6 @@ function visitUrl(){
 		$(currentNode).addClass('current');
 		$.get(href,function(data,status){
 			$('#container').html(data);
+			$(window).resize();
 		});
 }

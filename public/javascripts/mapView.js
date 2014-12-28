@@ -1,29 +1,29 @@
 var districtCodes = {
-	Ampara : "AP",
-	Anuradhapura : "AD",
-	Badulla : "BD",
-	Batticaloa : "BC",
-	Colombo : "CO",
-	Galle : "GL",
-	Gampaha : "GQ",
-	Hambantota : "HB",
-	Jaffna : "JA",
-	Kalutara : "KT",
-	Kandy : "KY",
-	Kegalle : "KE",
-	Kilinochchi : "KL",
-	Kurunegala : "KG",
-	Mannar : "MB",
-	Matale : "MT",
-	Matara : "MH",
-	Moneragala : "MJ",
-	Mullaitivu : "MP",
-	'Nuwara Eliya' : "NW",
-	Polonnaruwa : "PR",
-	Puttalam : "PX",
-	Ratnapura : "RN",
-	Trincomalee : "TC",
-	Vavuniya : "VA"
+	Ampara : "ap",
+	Anuradhapura : "ad",
+	Badulla : "bd",
+	Batticaloa : "bc",
+	Colombo : "co",
+	Galle : "gl",
+	Gampaha : "gq",
+	Hambantota : "hb",
+	Jaffna : "ja",
+	Kalutara : "kt",
+	Kandy : "ky",
+	Kegalle : "ke",
+	Kilinochchi : "kl",
+	Kurunegala : "kg",
+	Mannar : "mb",
+	Matale : "mt",
+	Matara : "mh",
+	Moneragala : "mj",
+	Mullaitivu : "mp",
+	'Nuwara Eliya' : "nw",
+	Polonnaruwa : "pr",
+	Puttalam : "px",
+	Ratnapura : "rn",
+	Trincomalee : "tc",
+	Vavuniya : "va"
 }
 
 var crimesByDistrict, crimes;
@@ -56,56 +56,55 @@ $('#controls_year').html(html);
 function drawMap(crimesByDistrict){
 
 var data = [];
-var color = [];
-
-var maxCount = 0;			
-for (var i=0; i<crimesByDistrict.length; i++) { 
-	if (crimesByDistrict[i].count > maxCount) 
-       maxCount = crimesByDistrict[i].count;
-}
 
 for (var i=0; i<crimesByDistrict.length; i++) { 
+   console.log(crimesByDistrict[i].count);
    data.push({
-	"id": 'LK.' + districtCodes[crimesByDistrict[i]._id],
-	"value": crimesByDistrict[i].count.toString()
+	"hc-key": 'lk-' + districtCodes[crimesByDistrict[i]._id],
+	"value": crimesByDistrict[i].count
    });
-};
-
-for (var i=0; i<crimesByDistrict.length; i++) { 
-	var colorParam = Math.floor((255/maxCount)*crimesByDistrict[i].count);
-	color.push({
-		"minvalue": (crimesByDistrict[i].count-1).toString(),
-		"maxvalue": crimesByDistrict[i].count.toString(),
-		"code": rgbToHex(255-colorParam, 255-colorParam ,255-colorParam)
-	});
 }
 
 
+    // Initiate the chart
+    $('#mapContainer').highcharts('Map', {
 
+        title : {
+            text : 'Crime Dencity Map of Sri Lanka'
+        },
 
-FusionCharts.ready(function(){
-    var populationMap = new FusionCharts({
-        type: 'maps/srilanka',
-        renderAt: 'mapContainer',
-        width: '400',
-        height: '400',
-        dataFormat: 'json',
-        dataSource: {
-            "chart": {
-                "caption": "Crime Dencity Map of Sri Lanka",
-                "theme": "fint",
-                "formatNumberScale": "0",
-				"showBorder": 1,
-				"showLegend": 0,
-				"nullEntityColor": "#E0F0E0"
+        subtitle : {
+            text : 'by Crawlers from news articles'
+        },
+
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
+            }
+        },
+
+        colorAxis: {
+            min: 0
+        },
+
+        series : [{
+            data : data,
+            mapData: Highcharts.maps['countries/lk/lk-all'],
+            joinBy: 'hc-key',
+            name: 'no of crimes',
+            states: {
+                hover: {
+                    color: '#BADA55'
+                }
             },
-            "data": data,
-            "colorrange": {
-			    "color": color
-			}
-        }
-    }).render();
-});
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
+    });
+
 }
 
 $(document).on("click",".crime_type_cb , .crime_year_cb",function(){
