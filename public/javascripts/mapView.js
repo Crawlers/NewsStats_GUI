@@ -58,7 +58,6 @@ function drawMap(crimesByDistrict){
 var data = [];
 
 for (var i=0; i<crimesByDistrict.length; i++) { 
-   console.log(crimesByDistrict[i].count);
    data.push({
 	"hc-key": 'lk-' + districtCodes[crimesByDistrict[i]._id],
 	"value": crimesByDistrict[i].count
@@ -92,6 +91,9 @@ for (var i=0; i<crimesByDistrict.length; i++) {
         colorAxis: {
             min: 0
         },
+		credits: {
+            enabled: false
+        },
 
         series : [{
             data : data,
@@ -117,7 +119,6 @@ $(document).on("click",".crime_type_cb , .crime_year_cb",function(){
 	var years = $("#form_crime_years").serializeArray().map(function(v){return {crime_year: v.value}});
     $.post( "filterMapData", {$and: [{$or : types}, {$or : years}]})
 	  .done(function( data ) {
-	    console.log(data);
         drawMap( JSON.parse(data) );
     });
 });

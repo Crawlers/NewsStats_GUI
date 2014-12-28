@@ -1,39 +1,113 @@
+var crimesByTypeAndYear, crimes, axis;
+drawGraph(crimesByTypeAndYear, axis);
+function drawGraph(crimesByTypeAndYear, axis){
+var category1 = {};
+var category2 = {};
+var series = [];
+var sum = [];
+var avarage = [];
+var pieData = [];
+var countsForPie = [];
 
-FusionCharts.ready(function(){
-    var revenueChart = new FusionCharts({
-        "type": "column2d",
-        "renderAt": "chartContainer",
-        "width": "500",
-        "height": "300",
-        "dataFormat": "json",
-        "dataSource":  {
-          "chart": {
-            "caption": "Crime Statistics Sri Lanka",
-            "subCaption": "by crawlers",
-            "xAxisName": "District",
-            "yAxisName": "Number of Crimes",
-            "theme": "fint"
-         },
-         "data": [
-            {
-               "label": "Colombo",
-               "value": "420"
-            },
-            {
-               "label": "Kandy",
-               "value": "81"
-            },
-            {
-               "label": "Matara",
-               "value": "720"
-            },
-            {
-               "label": "Gampaha",
-               "value": "550"
-            }
-          ]
-      }
+for (var i=0; i<crimes.length; i++) {
+   
+	category1[crimes[i]["crime_"+axis.x]] = true;
+	category2[crimes[i]["crime_"+axis.y]] = true;
+}
 
-  });
-revenueChart.render();
+var category1Array = $.map(category1, function(value, index) {
+    return [index];
 });
+var category2Array = $.map(category2, function(value, index) {
+    return [index];
+});
+category1Array.forEach(function(){
+	sum.push(0);
+});
+
+//create serials
+for (var i in crimesByTypeAndYear){
+    countsForPie.push(crimesByTypeAndYear[i].count);
+    var name = crimesByTypeAndYear[i]._id;
+	var types = {};
+	crimesByTypeAndYear[i].crime_types.forEach(
+		function(v,i){
+			return types[v.crime_type] = v.count; 
+		}
+	);
+	var data = [];
+	var count = 0;
+	for (var i in category1){
+		if (!types.hasOwnProperty(i)){
+		    data.push(0);
+		} else {
+		    data.push(types[i]);
+			sum[count] += types[i];
+		}
+		count++;
+	}
+	series.push({
+		type: 'column',
+		name: name,
+		data: data
+	});
+}
+
+avarage = sum.map(function(v,i){
+	return v/category2Array.length;
+});
+
+series.push({
+            type: 'spline',
+            name: 'Average',
+            data: avarage,
+            marker: {
+                lineWidth: 2,
+                lineColor: Highcharts.getOptions().colors[0],
+                fillColor: 'white'
+            }
+        });
+
+category2Array.forEach(function(v,i){
+    var data = {};
+	data.name = v;
+	data.y = countsForPie[i];
+	data.color = Highcharts.getOptions().colors[i];
+	pieData.push(data);
+});
+
+series.push({
+	type: 'pie',
+	name: 'Total',
+	data: pieData,
+	center: [20, 0],
+	size: 100,
+	showInLegend: false,
+	dataLabels: {
+		enabled: false
+	}
+});
+		
+$('#chartContainer').highcharts({
+        title: {
+            text: 'Crime Statistics'
+        },
+        xAxis: {
+            categories: category1Array
+        },credits: {
+          enabled: false
+        },
+        series: series
+});
+}
+
+$(document).on("click",".axis_control_rb",function(){
+   var input = $(this).val();
+   var axis =(input == 'type')?{x:'type',y:'year'}:{y:'type',x:'year'};
+   console.log(axis);
+   $.post( "filterGraphData", axis)
+	  .done(function( data ) {
+        drawGraph(JSON.parse(data),axis);
+    });
+});
+	
