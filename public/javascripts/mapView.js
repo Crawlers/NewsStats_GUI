@@ -83,6 +83,11 @@ for (var i=0; i<crimesByDistrict.length; i++) {
                 verticalAlign: 'bottom'
             }
         },
+		
+		chart: {
+			backgroundColor: '#eeeeee',
+			borderColor: '#000000'
+		},
 
         colorAxis: {
             min: 0
