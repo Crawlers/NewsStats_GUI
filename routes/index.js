@@ -60,8 +60,65 @@ exports.filterMapData = function(req, res) {
 }
 
 exports.graphView = function(req, res) {
-  if (req.xhr)
-    res.render('graphView',{ title: 'graph view' });
+  if (req.xhr) {
+	var axis = {x:"type", y:"year"};
+    var db = req.db;
+	var collection = db.get('crimes');
+	collection.find({},function(e,crimes){
+	    collection.col.aggregate([
+		  {$group: { _id: {crime_type:"$crime_type", crime_year:"$crime_year"}, count1: {$sum: 1}}},
+		  {$group: { 
+		      _id: "$_id.crime_"+axis.y,
+			  crime_types: {
+				  $push: {
+					crime_type: "$_id.crime_"+axis.x,
+					count: "$count1"
+				  },
+			  },
+			  count: {$sum: "$count1"}
+		  }},
+		  {$sort: {_id: 1}}
+		],function(e,docs){
+			res.render('graphView', {
+			    "crimes" : crimes,
+				"crimesByTypeAndYear" : docs,
+				"axis" : axis
+			});
+	   });
+	});
+	
+  }
+  else
+    res.render('error');
+}
+
+exports.filterGraphData = function(req, res) {
+  if (req.xhr) {
+	var axis = req.body;
+    var db = req.db;
+	var collection = db.get('crimes');
+	collection.find({},function(e,crimes){
+	    collection.col.aggregate([
+		  {$group: { _id: {crime_type:"$crime_type", crime_year:"$crime_year"}, count1: {$sum: 1}}},
+		  {$group: { 
+		      _id: "$_id.crime_"+axis.y,
+			  crime_types: {
+				  $push: {
+					crime_type: "$_id.crime_"+axis.x,
+					count: "$count1"
+				  },
+			  },
+			  count: {$sum: "$count1"}
+		  }},
+		  {$sort: {_id: 1}}
+		],function(e,docs){
+			res.render('postResults', {
+				"output" : docs
+			});
+	   });
+	});
+	
+  }
   else
     res.render('error');
 }

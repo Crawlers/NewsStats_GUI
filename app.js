@@ -40,6 +40,7 @@ app.get('/graphView',routes.graphView);
 app.get('/predictions',routes.predictions);
 
 app.post('/filterMapData',routes.filterMapData);
+app.post('/filterGraphData',routes.filterGraphData);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

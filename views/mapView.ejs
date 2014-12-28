@@ -1,15 +1,9 @@
-<script>
-var crimesByDistrict = <%- JSON.stringify(crimesByDistrict) %>;
-var crimes = <%- JSON.stringify(crimes) %>;
-</script>
-<script type="text/javascript" src="/javascripts/mapView.js"></script>
-
-
 <div id="mapContainer"></div>
+
+<form id="form_crime_types" name="control_form">
 <table>
 <tr></tr>
 <tr><td>
-<form id="form_crime_types" name="control_form">
 <h3>Crime Type</h3>
 <div id="controls_type" class="controlpanel">
 </div>
@@ -19,7 +13,12 @@ var crimes = <%- JSON.stringify(crimes) %>;
 <h3>Year</h3>
 <div id="controls_year" class="controlpanel">
 </div>
-</form>
 </td>
 </tr>
 </table>
+</form>
+<script>
+var crimesByDistrict = <%- JSON.stringify(crimesByDistrict) %>;
+var crimes = <%- JSON.stringify(crimes) %>;
+</script>
+<script type="text/javascript" src="/javascripts/mapView.js"></script>
