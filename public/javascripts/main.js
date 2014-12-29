@@ -1,7 +1,3 @@
-$(document).on({
-    ajaxStart: function() { $('#loading').show();},
-     ajaxStop: function() { $('#loading').hide(); }    
-});
 
 $(document).ready(function(){  
 	var url = document.URL;
@@ -48,7 +44,9 @@ function visitUrl(){
 			currentNode = currentNode.parentNode;
 		}
 		$(currentNode).addClass('current');
+		$('#loading').show();
 		$.get(href,function(data,status){
 			$('#container').html(data);
+			$('#loading').hide()
 		});
 }
