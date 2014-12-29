@@ -72,9 +72,6 @@ for (var i=0; i<crimesByDistrict.length; i++) {
             text : 'Crime Dencity Map of Sri Lanka'
         },
 
-        subtitle : {
-            text : 'by Crawlers from news articles'
-        },
 
         mapNavigation: {
             enabled: true,

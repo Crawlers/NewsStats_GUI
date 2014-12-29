@@ -1,4 +1,9 @@
-$(document).ready(function(){
+$(document).on({
+    ajaxStart: function() { $('#loading').show();},
+     ajaxStop: function() { $('#loading').hide(); }    
+});
+
+$(document).ready(function(){  
 	var url = document.URL;
 	if (url.indexOf('#') == -1){
 		visitUrl.call($('#nav a[href="#home"]')[0]);
@@ -27,7 +32,6 @@ $(document).ready(function(){
 	$(document).on("click",".axis_control_rb",function(){
 	   var input = $(this).val();
 	   var axis =(input == 'type')?{x:'type',y:'year'}:{y:'type',x:'year'};
-	   console.log(axis);
 	   $.post( "filterGraphData", axis)
 		  .done(function( data ) {
 			drawGraph(JSON.parse(data),axis);
@@ -37,7 +41,6 @@ $(document).ready(function(){
 });
 
 function visitUrl(){
-        console.log(this);
 		var href = this.href.replace('#', '');
 		$('#nav li').removeClass('current');
 		var currentNode = this;

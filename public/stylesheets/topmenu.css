@@ -1,3 +1,8 @@
+#nav #loading {
+    float: right;
+	top: 7px;
+}
+
 #nav { 
     z-index: 1000;
 	padding: 7px 6px 0;
