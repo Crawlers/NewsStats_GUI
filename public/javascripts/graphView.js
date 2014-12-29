@@ -92,6 +92,10 @@ $('#chartContainer').highcharts({
         title: {
             text: 'Crime Statistics'
         },
+		chart: {
+			backgroundColor: '#FAF0E6',
+			borderColor: '#000000'
+		},
         xAxis: {
             categories: category1Array
         },credits: {

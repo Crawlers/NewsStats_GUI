@@ -81,7 +81,7 @@ for (var i=0; i<crimesByDistrict.length; i++) {
         },
 		
 		chart: {
-			backgroundColor: '#eeeeee',
+			backgroundColor: '#FAF0E6',
 			borderColor: '#000000'
 		},
 
