@@ -100,14 +100,3 @@ $('#chartContainer').highcharts({
         series: series
 });
 }
-
-$(document).on("click",".axis_control_rb",function(){
-   var input = $(this).val();
-   var axis =(input == 'type')?{x:'type',y:'year'}:{y:'type',x:'year'};
-   console.log(axis);
-   $.post( "filterGraphData", axis)
-	  .done(function( data ) {
-        drawGraph(JSON.parse(data),axis);
-    });
-});
-	

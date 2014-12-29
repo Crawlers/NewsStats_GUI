@@ -114,16 +114,6 @@ for (var i=0; i<crimesByDistrict.length; i++) {
 
 }
 
-$(document).on("click",".crime_type_cb , .crime_year_cb",function(){
-    var types = $("#form_crime_types").serializeArray().map(function(v){return {crime_type: v.value}});
-	var years = $("#form_crime_years").serializeArray().map(function(v){return {crime_year: v.value}});
-    $.post( "filterMapData", {$and: [{$or : types}, {$or : years}]})
-	  .done(function( data ) {
-        drawMap( JSON.parse(data) );
-    });
-});
-
-
 //functions
 
 function rgbToHex(r, g, b) {

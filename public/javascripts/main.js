@@ -14,6 +14,26 @@ $(document).ready(function(){
 	$('#nav .url').click(function(){
 		visitUrl.call(this);
 	});
+	
+	$(document).on("click",".crime_type_cb , .crime_year_cb",function(){
+		var types = $("#form_crime_types").serializeArray().map(function(v){return {crime_type: v.value}});
+		var years = $("#form_crime_years").serializeArray().map(function(v){return {crime_year: v.value}});
+		$.post( "filterMapData", {$and: [{$or : types}, {$or : years}]})
+		  .done(function( data ) {
+			drawMap( JSON.parse(data) );
+		});
+	});
+	
+	$(document).on("click",".axis_control_rb",function(){
+	   var input = $(this).val();
+	   var axis =(input == 'type')?{x:'type',y:'year'}:{y:'type',x:'year'};
+	   console.log(axis);
+	   $.post( "filterGraphData", axis)
+		  .done(function( data ) {
+			drawGraph(JSON.parse(data),axis);
+		});
+	});
+	
 });
 
 function visitUrl(){

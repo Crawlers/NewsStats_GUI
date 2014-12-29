@@ -12,7 +12,7 @@ var users = require('./routes/user');
 // mongo db
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://plbsam:ffypguii@ds043190.mongolab.com:43190/fypgui');
+var db = monk('localhost:27017/fypgui');
 
 var app = express();
 
