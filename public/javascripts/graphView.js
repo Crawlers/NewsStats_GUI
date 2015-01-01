@@ -80,7 +80,7 @@ series.push({
 	type: 'pie',
 	name: 'Total',
 	data: pieData,
-	center: [20, 0],
+	center: [50, -10],
 	size: 100,
 	showInLegend: false,
 	dataLabels: {
