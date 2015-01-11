@@ -61,7 +61,7 @@ exports.filterMapData = function(req, res) {
 
 exports.graphView = function(req, res) {
   if (req.xhr) {
-	var axis = {x:"type", y:"year"};
+	var axis = {x:"year", y:"type"};
     var db = req.db;
 	var collection = db.get('crimes');
 	collection.find({},function(e,crimes){
