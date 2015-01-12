@@ -11,7 +11,7 @@ var routes = require('./routes');
 // mongo db
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://crawler:csecrawler@ds049219.mongolab.com:49219/fyp');  
+var db = monk('mongodb://crawler:csecrawler@ds033607.mongolab.com:33607/csefypgui');  
 
 var app = express();
 
