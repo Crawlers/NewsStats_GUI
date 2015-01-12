@@ -1,0 +1,14 @@
+<div id="totalPieChartWrapper" align="center">
+<div id="totalPieChart"></div>
+<form id="pie_chart_control_form" name="pie_chart_control_form">
+</form>
+</div>
+<br><br><br>
+<div id="pieChartsForEachYear" align="center"></div>
+<script>
+var crimesByYear = <%- JSON.stringify(crimesByYear) %>;
+var crimes = <%- JSON.stringify(crimes) %>;
+var crimeTypes = <%- JSON.stringify(crime_types) %>.sort();
+var crimeYears = <%- JSON.stringify(crime_years) %>.sort();
+</script>
+<script type="text/javascript" src="/javascripts/pieChartView.js"></script>

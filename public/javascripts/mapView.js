@@ -86,7 +86,9 @@ for (var i=0; i<crimesByDistrict.length; i++) {
 		},
 
         colorAxis: {
-            min: 0
+            min: 0,
+			maxColor: '#FF0000',
+			minColor: '#FFFFFF'
         },
 		credits: {
             enabled: false

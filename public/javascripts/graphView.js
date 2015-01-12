@@ -75,18 +75,6 @@ category2Array.forEach(function(v,i){
 	data.color = Highcharts.getOptions().colors[i];
 	pieData.push(data);
 });
-
-series.push({
-	type: 'pie',
-	name: 'Total',
-	data: pieData,
-	center: [50, -10],
-	size: 100,
-	showInLegend: false,
-	dataLabels: {
-		enabled: false
-	}
-});
 		
 $('#chartContainer').highcharts({
         title: {
@@ -98,7 +86,8 @@ $('#chartContainer').highcharts({
 		},
         xAxis: {
             categories: category1Array
-        },credits: {
+        },
+		credits: {
           enabled: false
         },
         series: series

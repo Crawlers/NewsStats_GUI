@@ -11,7 +11,7 @@ var routes = require('./routes');
 // mongo db
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://plbsam:ccsefypguii@ds043190.mongolab.com:43190/fypgui');   //mongodb://plbsam:ffypguii@ds043190.mongolab.com:43190/fypgui
+var db = monk('mongodb://plbsam:fypgui@ds043190.mongolab.com:43190/fypgui');   //mongodb://plbsam:fypgui@ds043190.mongolab.com:43190/fypgui
 
 var app = express();
 
@@ -36,10 +36,12 @@ app.get('/', routes.index);
 app.get('/home', routes.home);
 app.get('/mapView', routes.mapView);
 app.get('/graphView',routes.graphView);
+app.get('/pieChartView',routes.pieChartView);
 app.get('/predictions',routes.predictions);
 
 app.post('/filterMapData',routes.filterMapData);
 app.post('/filterGraphData',routes.filterGraphData);
+app.post('/filterPieChartData',routes.filterPieChartData);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

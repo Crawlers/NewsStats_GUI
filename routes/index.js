@@ -61,7 +61,7 @@ exports.filterMapData = function(req, res) {
 
 exports.graphView = function(req, res) {
   if (req.xhr) {
-	var axis = {x:"type", y:"year"};
+	var axis = {x:"year", y:"type"};
     var db = req.db;
 	var collection = db.get('crimes');
 	collection.find({},function(e,crimes){
@@ -117,6 +117,74 @@ exports.filterGraphData = function(req, res) {
 			});
 	   });
 	});
+	
+  }
+  else
+    res.render('error');
+}
+
+exports.pieChartView = function(req, res) {
+  if (req.xhr) {
+	var axis = {x:"type", y:"year"};
+    var db = req.db;
+	var collection = db.get('crimes');
+	collection.find({},function(e,crimes){
+	    collection.col.aggregate([
+		  {$group: { _id: {crime_type:"$crime_type", crime_year:"$crime_year"}, count1: {$sum: 1}}},
+		  {$group: { 
+		      _id: "$_id.crime_"+axis.y,
+			  crime_types: {
+				  $push: {
+					crime_type: "$_id.crime_"+axis.x,
+					count: "$count1"
+				  },
+			  },
+			  count: {$sum: "$count1"}
+		  }},
+		  {$sort: {_id: 1}}
+		],function(e,docs){
+		    collection.distinct('crime_type',function(e, types){
+			    collection.distinct('crime_year',function(e, years){
+					res.render('pieChartView', {
+						"crimes" : crimes,
+						"crimesByYear" : docs,
+						"crime_types" : types,
+						"crime_years" : years
+					});
+				});
+			});
+	   });
+	});
+	
+  }
+  else
+    res.render('error');
+}
+
+exports.filterPieChartData = function(req, res) {
+  if (req.xhr) {
+    var db = req.db;
+	console.log(req.body.years);
+	var collection = db.get('crimes');
+	    collection.col.aggregate([
+		  {$match: {$or : req.body.years}},
+		  {$group: { _id: {crime_type:"$crime_type", crime_year:"$crime_year"}, count1: {$sum: 1}}},
+		  {$group: { 
+		      _id: "$_id.crime_type",
+			  crime_years: {
+				  $push: {
+					crime_year: "$_id.crime_year",
+					count: "$count1"
+				  },
+			  },
+			  count: {$sum: "$count1"}
+		  }},
+		  {$sort: {_id: 1}}
+		],function(e,docs){
+			res.render('postResults', {
+				"output" : docs
+			});
+	   });
 	
   }
   else
