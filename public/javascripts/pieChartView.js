@@ -2,8 +2,9 @@ var crimesByYear, crimeTypes, crimeYears;
 var series = [];
 var pieCount = crimeYears.length;
 var piesWidth = 900;
+var pieWidth = 150;
 var widthPerPC = piesWidth/pieCount;
-var pieXPos = widthPerPC/2;
+var pieXPos = widthPerPC/2-pieWidth/4;
 console.log(pieXPos);
 for (var i in crimesByYear){
 	var data = [];
@@ -124,7 +125,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
                 });
                 
             });
-			var leftX = 10 + widthPerPC/2;
+			var leftX = 10 + widthPerPC/2 - pieWidth/4;
 			for (var i in crimesByYear){
 				chart.renderer.text(crimesByYear[i]._id, leftX, 300).css({
 					color: '#444',
