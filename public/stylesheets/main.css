@@ -45,6 +45,13 @@ list-style-type: none;
     width: 50%; 
     margin: 10px;
 }
+
+#pieChartsForEachYear div {
+display: inline-block;
+    color:#444;
+    margin: 10px;
+}
+
 .loading {
     margin-top: 10em;
     text-align: center;

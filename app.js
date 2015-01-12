@@ -36,10 +36,12 @@ app.get('/', routes.index);
 app.get('/home', routes.home);
 app.get('/mapView', routes.mapView);
 app.get('/graphView',routes.graphView);
+app.get('/pieChartView',routes.pieChartView);
 app.get('/predictions',routes.predictions);
 
 app.post('/filterMapData',routes.filterMapData);
 app.post('/filterGraphData',routes.filterGraphData);
+app.post('/filterPieChartData',routes.filterPieChartData);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

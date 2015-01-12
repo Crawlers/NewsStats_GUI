@@ -34,6 +34,14 @@ $(document).ready(function(){
 		});
 	});
 	
+	$(document).on("click",".pie_chart_cb",function(){
+	   var years = $("#pie_chart_control_form").serializeArray().map(function(v){return {crime_year: v.value}});
+	   console.log(years);
+	   $.post( "filterPieChartData", {'years': years})
+		  .done(function( data ) {
+		  drawPieChart(JSON.parse(data));
+		});
+	});
 });
 
 function visitUrl(){
