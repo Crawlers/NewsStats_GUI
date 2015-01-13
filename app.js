@@ -37,6 +37,7 @@ app.get('/home', routes.home);
 app.get('/mapView', routes.mapView);
 app.get('/barChartView',routes.barChartView);
 app.get('/pieChartView',routes.pieChartView);
+app.get('/lineChartView',routes.lineChartView);
 app.get('/predictions',routes.predictions);
 
 app.post('/filterMapData',routes.filterMapData);

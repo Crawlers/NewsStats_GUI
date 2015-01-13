@@ -67,6 +67,14 @@ exports.filterPieChartData = function(req, res) {
     res.render('error');
 }
 
+exports.lineChartView = function(req, res) {
+  if (req.xhr) {
+	ViewTypesManager.crimeLineChartView.render(req,res);
+  }
+  else
+    res.render('error');
+}
+
 exports.home = function(req, res) {
   if (req.xhr)
     res.render('home',{ title: 'home' });

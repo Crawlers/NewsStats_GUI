@@ -1,16 +1,5 @@
 var barChartData, axis;
 drawBarChart(barChartData);
-
-$(document).off("click",".bc_axis_control_rb");
-$(document).on("click",".bc_axis_control_rb",function(){
-	   var input = $(this).val();
-	   var axs = {x: axis.y,y: axis.x};
-	   $.post( "filterBarChartData", axs)
-		  .done(function( data ) {
-			drawBarChart(JSON.parse(data));
-	});
-});
-	
 	
 function drawBarChart(barChartData){
 	axis = barChartData.axis;
@@ -62,7 +51,7 @@ function drawBarChart(barChartData){
 			count++;
 		}
 		series.push({
-			type: 'column',
+			type: 'line',
 			name: name,
 			data: data
 		});
@@ -90,21 +79,40 @@ function drawBarChart(barChartData){
 		data.color = Highcharts.getOptions().colors[i];
 		pieData.push(data);
 	});
-	console.log(series);
-	$('#barChartContainer').highcharts({
-			title: {
-				text: 'Crime Distribution - Bar Chart'
-			},
-			chart: {
-				backgroundColor: '#FAF0E6',
-				borderColor: '#000000'
-			},
-			xAxis: {
-				categories: category1Array
-			},
-			credits: {
+			
+	$('#lineChartContainer').highcharts({
+	    chart: {
+			backgroundColor: '#FAF0E6',
+			borderColor: '#000000'
+		},
+        title: {
+            text: 'Crime Distribution - Line Chart',
+            x: -20 //center
+        },
+        xAxis: {title: {
+                text: 'Year'
+            },
+            categories: barChartData.distinctData.field1
+        },
+        yAxis: {
+            title: {
+                text: 'Crime Frequncy'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+		credits: {
 			  enabled: false
 			},
-			series: series
-	});
+        series: series
+    });
 }
