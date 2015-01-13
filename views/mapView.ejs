@@ -1,24 +1,23 @@
 <div id="mapContainer"></div>
 
-<form id="form_crime_types" name="control_form">
+<form id="mapview_field1_form" name="mapview_form">
 <table>
 <tr></tr>
 <tr><td>
-<h3>Crime Type</h3>
-<div id="controls_type" class="controlpanel">
+<h3></h3>
+<div id="mapview_field1_controls" class="controlpanel">
 </div>
 </form>
 </td><td></td><td>
-<form id="form_crime_years" name="control_form">
-<h3>Year</h3>
-<div id="controls_year" class="controlpanel">
+<form id="mapview_field2_form" name="control_form">
+<h3></h3>
+<div id="mapview_field2_controls" class="controlpanel">
 </div>
 </td>
 </tr>
 </table>
 </form>
 <script>
-var crimesByDistrict = <%- JSON.stringify(crimesByDistrict) %>;
-var crimes = <%- JSON.stringify(crimes) %>;
+var globalData = <%- JSON.stringify(data) %>;
 </script>
 <script type="text/javascript" src="/javascripts/mapView.js"></script>

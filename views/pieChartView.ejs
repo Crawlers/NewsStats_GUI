@@ -6,9 +6,6 @@
 <br><br><br>
 <div id="pieChartsForEachYear" align="center"></div>
 <script>
-var crimesByYear = <%- JSON.stringify(crimesByYear) %>;
-var crimes = <%- JSON.stringify(crimes) %>;
-var crimeTypes = <%- JSON.stringify(crime_types) %>.sort();
-var crimeYears = <%- JSON.stringify(crime_years) %>.sort();
+var pieChartData = <%- JSON.stringify(data) %>;
 </script>
 <script type="text/javascript" src="/javascripts/pieChartView.js"></script>
