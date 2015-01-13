@@ -26,41 +26,46 @@ var districtCodes = {
 	Vavuniya : "va"
 }
 
-var crimesByDistrict, crimes;
-
-
-drawMap(crimesByDistrict);
+var globalData;
+console.log(globalData);
+drawMap(globalData.frequencyData);
 drawControls();
 
 function drawControls(){
-var crimeTypes = {};
-var crimeYears = {};
-for (var i=0; i<crimes.length; i++) { 
-	crimeTypes[crimes[i].crime_type] = true;
-	crimeYears[crimes[i].crime_year] = true;
+	var html = '<input type="hidden" class="mapview_field1_cb" name="mapview_field1" value="sdf89fd0">';
+	var field1 = globalData.distinctData.field1.sort();
+	for (var i in field1) { 
+		html += '<input type="checkbox" class="mapview_field1_cb" name="mapview_field1" value=' + field1[i] + ' checked="checked">' + field1[i] + '<br>';
+	}
+	$('#mapview_field1_controls').html(html);
+
+	html = '<input type="hidden" class="mapview_field2_cb" name="mapview_field2" value="sdf89fd0">';
+	var field2 = globalData.distinctData.field2.sort();
+	for (var i in field2) { 
+		html += '<input type="checkbox" class="mapview_field2_cb" name="mapview_field2" value=' + field2[i] + ' checked="checked">' + field2[i] + '<br>';
+	}
+	$('#mapview_field2_controls').html(html);
+	
+	$(document).off("click",".mapview_field1_cb , .mapview_field2_cb");
+	$(document).on("click",".mapview_field1_cb , .mapview_field2_cb",function(){
+		var types = $("#mapview_field1_form").serializeArray().map(function(v){return {crime_type: v.value}});
+		var years = $("#mapview_field2_form").serializeArray().map(function(v){return {crime_year: v.value}});
+		console.log({$and: [{$or : types}, {$or : years}]});
+		$.post( "filterMapData", {$and: [{$or : types}, {$or : years}]})
+		  .done(function( data ) {
+			drawMap( JSON.parse(data) );
+		});
+	});
 }
 
-var html = '<input type="hidden" class="crime_type_cb" name="crime_type" value="sdf89fd0">';
-for (var type in crimeTypes) { 
-	html += '<input type="checkbox" class="crime_type_cb" name="crime_type" value=' + type + ' checked="checked">' + type + '<br>';
-}
-$('#controls_type').html(html);
-
-html = '<input type="hidden" class="crime_type_cb" name="crime_year" value="sdf89fd0">';
-for (var year in crimeYears) { 
-	html += '<input type="checkbox" class="crime_year_cb" name="crime_year" value=' + year + ' checked="checked">' + year + '<br>';
-}
-$('#controls_year').html(html);
-}
-
-function drawMap(crimesByDistrict){
+function drawMap(frequencyData){
 
 var data = [];
 
-for (var i=0; i<crimesByDistrict.length; i++) { 
+for (var i=0; i<frequencyData.length; i++) { 
    data.push({
-	"hc-key": 'lk-' + districtCodes[crimesByDistrict[i]._id],
-	"value": crimesByDistrict[i].count
+	"hc-key": 'lk-' + districtCodes[frequencyData[i]._id],
+	"value": frequencyData[i].count
    });
 }
 
@@ -112,15 +117,3 @@ for (var i=0; i<crimesByDistrict.length; i++) {
     });
 
 }
-
-//functions
-
-function rgbToHex(r, g, b) {
-	 return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-	 function componentToHex(c) {
-		  var hex = c.toString(16);
-		  return hex.length == 1 ? "0" + hex : hex;
-	 }
-}
-
-

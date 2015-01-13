@@ -12,26 +12,29 @@ body {
   margin-right: 10%;
 }
 
-
-#axis_control_form table {
+#bc_axis_control_form table {
    margin-left: 30%;
    margin-right: 30%;
    width: 40%;
    color:#444;
 }
 
-#form_crime_types table tr{
+#mapview_field1_form table tr{
    height: 100px;
    vertical-align: text-top;
+   color:#444;
 }
 
-#form_crime_types table td{
+#mapview_field1_form table td{
    min-width: 100px;
    vertical-align: text-top;
    color:#444;
 }
 
-
+#totalPieChart {
+   min-width: 900px;
+   min-height: 400px;
+}
 
 .home ul{
 color: #444;

@@ -35,12 +35,13 @@ app.use(app.router);
 app.get('/', routes.index);
 app.get('/home', routes.home);
 app.get('/mapView', routes.mapView);
-app.get('/graphView',routes.graphView);
+app.get('/barChartView',routes.barChartView);
 app.get('/pieChartView',routes.pieChartView);
+app.get('/lineChartView',routes.lineChartView);
 app.get('/predictions',routes.predictions);
 
 app.post('/filterMapData',routes.filterMapData);
-app.post('/filterGraphData',routes.filterGraphData);
+app.post('/filterBarChartData',routes.filterBarChartData);
 app.post('/filterPieChartData',routes.filterPieChartData);
 
 /// catch 404 and forwarding to error handler

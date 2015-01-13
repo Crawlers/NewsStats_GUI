@@ -1,0 +1,21 @@
+<div id="barChartContainer"></div>
+<div id="barChartController">
+<form id="bc_axis_control_form">
+<table>
+<tr>
+<td>
+<b>X Axis :</b>
+</td><td></td><td>
+<input type="radio" class="bc_axis_control_rb" name="x" value=" <%- data.metadata.field.field1 %> " checked="checked">Crime Year
+</td><td></td><td>
+<input type="radio" class="bc_axis_control_rb" name="x" value=" <%- data.metadata.field.field2 %> ">Crime Type
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script>
+var barChartData = <%- JSON.stringify(data) %>;
+</script>
+<script type="text/javascript" src="/javascripts/barChartView.js"></script>
+
