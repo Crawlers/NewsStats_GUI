@@ -1,6 +1,4 @@
-/* GET home page. */
-var ViewTypesManager = require('../view_types/view-types-manager.js');
-
+var ViewTypes = require('../lib/view-types.js');
 
 exports.index = function(req, res){
   res.render('index', { title: 'NewsStats' });
@@ -23,54 +21,49 @@ exports.predictions = function(req, res) {
 
 exports.mapView = function(req, res) {
   if (req.xhr)
-    ViewTypesManager.crimeMapView.render(req,res);
+    ViewTypes.crimeMapView.render(req,res);
   else
     res.render('error');
 }
 
 exports.filterMapData = function(req, res) {
   if (req.xhr)
-    ViewTypesManager.crimeMapView.sendFiteredData(req,res);
+    ViewTypes.crimeMapView.sendFiteredData(req,res);
   else
     res.render('error');
 }
 
 exports.barChartView = function(req, res) {
-  if (req.xhr) {
-	ViewTypesManager.crimeBarChartView.render(req,res);
-  }
+  if (req.xhr)
+	ViewTypes.crimeBarChartView.render(req,res);
   else
     res.render('error');
 }
 
 exports.filterBarChartData = function(req, res) {
-  if (req.xhr) {
-	ViewTypesManager.crimeBarChartView.sendFiteredData(req,res);
-  }
+  if (req.xhr)
+	ViewTypes.crimeBarChartView.sendFiteredData(req,res);
   else
     res.render('error');
 }
 
 exports.pieChartView = function(req, res) {
-  if (req.xhr) {
-	ViewTypesManager.crimePieChartView.render(req,res);
-  }
+  if (req.xhr)
+	ViewTypes.crimePieChartView.render(req,res);
   else
     res.render('error');
 }
 
 exports.filterPieChartData = function(req, res) {
-  if (req.xhr) {
-	ViewTypesManager.crimePieChartView.sendFiteredData(req,res);
-  }
+  if (req.xhr)
+	ViewTypes.crimePieChartView.sendFiteredData(req,res);
   else
     res.render('error');
 }
 
 exports.lineChartView = function(req, res) {
-  if (req.xhr) {
-	ViewTypesManager.crimeLineChartView.render(req,res);
-  }
+  if (req.xhr)
+	ViewTypes.crimeLineChartView.render(req,res);
   else
     res.render('error');
 }
