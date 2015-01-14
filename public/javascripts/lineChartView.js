@@ -102,7 +102,8 @@ function drawBarChart(barChartData){
                 value: 0,
                 width: 1,
                 color: '#808080'
-            }]
+            }],
+			min: 0
         },
         legend: {
             layout: 'vertical',
