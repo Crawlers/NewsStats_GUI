@@ -34,41 +34,36 @@ exports.filterMapData = function(req, res) {
 }
 
 exports.barChartView = function(req, res) {
-  if (req.xhr) {
+  if (req.xhr)
 	ViewTypes.crimeBarChartView.render(req,res);
-  }
   else
     res.render('error');
 }
 
 exports.filterBarChartData = function(req, res) {
-  if (req.xhr) {
+  if (req.xhr)
 	ViewTypes.crimeBarChartView.sendFiteredData(req,res);
-  }
   else
     res.render('error');
 }
 
 exports.pieChartView = function(req, res) {
-  if (req.xhr) {
+  if (req.xhr)
 	ViewTypes.crimePieChartView.render(req,res);
-  }
   else
     res.render('error');
 }
 
 exports.filterPieChartData = function(req, res) {
-  if (req.xhr) {
+  if (req.xhr)
 	ViewTypes.crimePieChartView.sendFiteredData(req,res);
-  }
   else
     res.render('error');
 }
 
 exports.lineChartView = function(req, res) {
-  if (req.xhr) {
+  if (req.xhr)
 	ViewTypes.crimeLineChartView.render(req,res);
-  }
   else
     res.render('error');
 }

@@ -26,21 +26,20 @@ var districtCodes = {
 	Vavuniya : "va"
 }
 
-var globalData;
-console.log(globalData);
-drawMap(globalData.frequencyData);
+var mapData;
+drawMap(mapData.frequencyData);
 drawControls();
 
 function drawControls(){
 	var html = '<input type="hidden" class="mapview_field1_cb" name="mapview_field1" value="sdf89fd0">';
-	var field1 = globalData.distinctData.field1.sort();
+	var field1 = mapData.distinctData.field1.sort();
 	for (var i in field1) { 
 		html += '<input type="checkbox" class="mapview_field1_cb" name="mapview_field1" value=' + field1[i] + ' checked="checked">' + field1[i] + '<br>';
 	}
 	$('#mapview_field1_controls').html(html);
 
 	html = '<input type="hidden" class="mapview_field2_cb" name="mapview_field2" value="sdf89fd0">';
-	var field2 = globalData.distinctData.field2.sort();
+	var field2 = mapData.distinctData.field2.sort();
 	for (var i in field2) { 
 		html += '<input type="checkbox" class="mapview_field2_cb" name="mapview_field2" value=' + field2[i] + ' checked="checked">' + field2[i] + '<br>';
 	}
@@ -50,7 +49,6 @@ function drawControls(){
 	$(document).on("click",".mapview_field1_cb , .mapview_field2_cb",function(){
 		var types = $("#mapview_field1_form").serializeArray().map(function(v){return {crime_type: v.value}});
 		var years = $("#mapview_field2_form").serializeArray().map(function(v){return {crime_year: v.value}});
-		console.log({$and: [{$or : types}, {$or : years}]});
 		$.post( "filterMapData", {$and: [{$or : types}, {$or : years}]})
 		  .done(function( data ) {
 			drawMap( JSON.parse(data) );
