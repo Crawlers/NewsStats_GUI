@@ -61,7 +61,8 @@ function drawChart(chartData){
 				},
 				chart: {
 					backgroundColor: '#FAF0E6',
-					borderColor: '#000000'
+					borderColor: '#000000',
+					height: 500
 				},
 				xAxis: {
 					title: { text: chartProperties.xAxis.title},
