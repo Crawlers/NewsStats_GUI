@@ -14,7 +14,7 @@ for (var i in frqData){
 		types[v.field] = v.count;
 	});
 	
-	var field1 = pieChartData.distinctData.field1;
+	var field1 = pieChartData.distinctData.field1.sort();
 	for(var j=0; j<field1.length; j++){
 	    var count = (types.hasOwnProperty(field1[j]))?types[field1[j]]:0;
 		data.push([field1[j],count]);
@@ -149,14 +149,14 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 	});
 	
 	drawControlls();
-	var field2 = pieChartData.distinctData.field2;
+	var field2 = pieChartData.distinctData.field2.sort();
 	var $or = field2.map(function(v){var obj = {}; obj[pieChartData.metadata.field.field1] = v; return obj;});
 	$.post( "filterPieChartData", {'$or' : $or}).done(function( data ) {
 		  drawPieChart(JSON.parse(data));
 	});
 	
 	function drawControlls(){
-	    var field2 = pieChartData.distinctData.field2;
+	    var field2 = pieChartData.distinctData.field2.sort();
         var html = '<table><tr><td><b>Year :</b><input type="hidden" class="pie_chart_cb" name="crime_year" value="sdf89fd0">';
 		for (var i in field2) { 
 			html += '</td><td></td><td><input type="checkbox" class="pie_chart_cb" name="crime_year" value=' + field2[i] + ' checked="checked">' + field2[i] + '<br>';
@@ -173,7 +173,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 			types[v._id] = v.count;
 		});
 		
-		var field1 = pieChartData.distinctData.field1;
+		var field1 = pieChartData.distinctData.field1.sort();
 	    for(var j=0; j<field1.length; j++){
 			var count = (types.hasOwnProperty(field1[j]))?types[field1[j]]:0;
 			data.push([field1[j],count]);
