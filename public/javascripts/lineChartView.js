@@ -90,9 +90,9 @@ function drawBarChart(barChartData){
             x: -20 //center
         },
         xAxis: {title: {
-                text: 'Year'
+                text: 'Quarter'
             },
-            categories: barChartData.distinctData.field1
+            categories: barChartData.distinctData.field1.sort()
         },
         yAxis: {
             title: {

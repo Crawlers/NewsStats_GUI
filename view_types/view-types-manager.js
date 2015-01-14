@@ -13,6 +13,9 @@ metadata.field = {frequency: 'crime_count', field1: 'crime_year', field2: 'crime
 metadata.alias = {frequency: 'Crime Count', field1: 'Crime Year', field2: 'Crime Type'};
 var crimeBarChartView = new barChartView(metadata);
 var crimePieChartView = new pieChartView(metadata);
+var metadata = {collection: 'crimes'};
+metadata.field = {frequency: 'crime_count', field1: 'crime_yearquarter', field2: 'crime_type'};
+metadata.alias = {frequency: 'Crime Count', field1: 'Quarter of the year', field2: 'Crime Type'};
 var crimeLineChartView = new lineChartView(metadata);
 
 module.exports = {
