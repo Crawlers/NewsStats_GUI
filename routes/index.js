@@ -27,7 +27,6 @@ exports.predictions_mapView = function(req, res) {
 
 exports.predictions_filterMapData = function(req, res) {
   if (req.xhr){
-  console.log(req.body);
     ViewTypes.predictionMapView.sendFiteredData(req,res);
 	}
   else

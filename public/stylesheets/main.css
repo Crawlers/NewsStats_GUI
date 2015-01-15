@@ -12,6 +12,10 @@ body {
   margin-right: 10%;
 }
 
+form table td{
+   color:#444;
+}
+
 #bc_axis_control_form table {
    margin-left: 30%;
    margin-right: 30%;

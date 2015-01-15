@@ -51,11 +51,8 @@ function drawControls(){
 		var f2 = mapData.metadata.field.field2;
 		var field1 = $("#mapview_field1_form").serializeArray().map(function(v){var obj = {}; obj[f1] = v.value; return obj;});
 		var field2 = $("#mapview_field2_form").serializeArray().map(function(v){var obj = {}; obj[f2] = v.value; return obj;});
-		console.log(field1);
-		console.log(field2);
 		$.post( mapData.metadata.collection+"_filterMapData", {$and: [{$or : field1}, {$or : field2}]})
 		  .done(function( data ) {
-		     console.log(data);
 			drawMap( JSON.parse(data) );
 		});
 	});
