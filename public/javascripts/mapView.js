@@ -34,23 +34,28 @@ function drawControls(){
 	var html = '<input type="hidden" class="mapview_field1_cb" name="mapview_field1" value="sdf89fd0">';
 	var field1 = mapData.distinctData.field1.sort();
 	for (var i in field1) { 
-		html += '<input type="checkbox" class="mapview_field1_cb" name="mapview_field1" value=' + field1[i] + ' checked="checked">' + field1[i] + '<br>';
+		html += '<input type="checkbox" class="mapview_field1_cb" name="mapview_field1" value="' + field1[i] + '" checked="checked">' + field1[i] + '<br>';
 	}
 	$('#mapview_field1_controls').html(html);
 
 	html = '<input type="hidden" class="mapview_field2_cb" name="mapview_field2" value="sdf89fd0">';
 	var field2 = mapData.distinctData.field2.sort();
 	for (var i in field2) { 
-		html += '<input type="checkbox" class="mapview_field2_cb" name="mapview_field2" value=' + field2[i] + ' checked="checked">' + field2[i] + '<br>';
+		html += '<input type="checkbox" class="mapview_field2_cb" name="mapview_field2" value="' + field2[i] + '" checked="checked">' + field2[i] + '<br>';
 	}
 	$('#mapview_field2_controls').html(html);
 	
 	$(document).off("click",".mapview_field1_cb , .mapview_field2_cb");
 	$(document).on("click",".mapview_field1_cb , .mapview_field2_cb",function(){
-		var types = $("#mapview_field1_form").serializeArray().map(function(v){return {crime_type: v.value}});
-		var years = $("#mapview_field2_form").serializeArray().map(function(v){return {crime_year: v.value}});
-		$.post( "filterMapData", {$and: [{$or : types}, {$or : years}]})
+	    var f1 = mapData.metadata.field.field1;
+		var f2 = mapData.metadata.field.field2;
+		var field1 = $("#mapview_field1_form").serializeArray().map(function(v){var obj = {}; obj[f1] = v.value; return obj;});
+		var field2 = $("#mapview_field2_form").serializeArray().map(function(v){var obj = {}; obj[f2] = v.value; return obj;});
+		console.log(field1);
+		console.log(field2);
+		$.post( mapData.metadata.collection+"_filterMapData", {$and: [{$or : field1}, {$or : field2}]})
 		  .done(function( data ) {
+		     console.log(data);
 			drawMap( JSON.parse(data) );
 		});
 	});
@@ -72,7 +77,7 @@ for (var i=0; i<frequencyData.length; i++) {
     $('#mapContainer').highcharts('Map', {
 
         title : {
-            text : 'Crime Dencity Map of Sri Lanka'
+            text : mapData.metadata.params.title
         },
 
 

@@ -45,8 +45,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 		height : 400
 	},
 	title: {
-		text: 'Crime type distribution for each year',
-		style: {'text-decoration': 'underline'}
+		text: pieChartData.metadata.params.title2
 	},
 	tooltip: {
 		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -142,7 +141,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 	$(document).off("click",".pie_chart_cb");
 	$(document).on("click",".pie_chart_cb",function(){
 	   var $or = $("#pie_chart_control_form").serializeArray().map(function(v){var obj = {}; obj[pieChartData.metadata.field.field1] = v.value; return obj;});
-	   $.post( "filterPieChartData", {'$or': $or})
+	   $.post( pieChartData.metadata.collection+"_filterPieChartData", {'$or': $or})
 		  .done(function( data ) {
 		  drawPieChart(JSON.parse(data));
 		});
@@ -151,7 +150,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 	drawControlls();
 	var field2 = pieChartData.distinctData.field2.sort();
 	var $or = field2.map(function(v){var obj = {}; obj[pieChartData.metadata.field.field1] = v; return obj;});
-	$.post( "filterPieChartData", {'$or' : $or}).done(function( data ) {
+	$.post( pieChartData.metadata.collection+"_filterPieChartData", {'$or' : $or}).done(function( data ) {
 		  drawPieChart(JSON.parse(data));
 	});
 	
@@ -159,7 +158,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 	    var field2 = pieChartData.distinctData.field2.sort();
         var html = '<table><tr><td><b>Year :</b><input type="hidden" class="pie_chart_cb" name="crime_year" value="sdf89fd0">';
 		for (var i in field2) { 
-			html += '</td><td></td><td><input type="checkbox" class="pie_chart_cb" name="crime_year" value=' + field2[i] + ' checked="checked">' + field2[i] + '<br>';
+			html += '</td><td></td><td><input type="checkbox" class="pie_chart_cb" name="crime_year" value="' + field2[i] + '" checked="checked">' + field2[i] + '<br>';
 		}
 		html += '</td></tr></table>';
 		$('#pie_chart_control_form').html(html);
@@ -189,8 +188,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 				height : 400
 			},
 			title: {
-				text: 'Total crime type distribution',
-				style: {'text-decoration': 'underline'}
+				text: pieChartData.metadata.params.title1
 			},
 			tooltip: {
 				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

@@ -57,7 +57,7 @@ function drawChart(chartData){
 			});
 	$('#'+chartProperties.componentId).highcharts({
 				title: {
-					text: chartProperties.title
+					text: chartData.metadata.params.title
 				},
 				chart: {
 					backgroundColor: '#FAF0E6',
