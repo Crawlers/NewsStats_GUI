@@ -6,9 +6,9 @@
 <td>
 <b>X Axis :</b>
 </td><td></td><td>
-<input type="radio" class="bc_axis_control_rb" name="x" value=" <%- data.metadata.field.field1 %> " checked="checked">Crime Year
+<input type="radio" class="bc_axis_control_rb" name="x" value=" <%- data.metadata.field.field1 %> " checked="checked"><%= data.metadata.params.xtitle1 %>
 </td><td></td><td>
-<input type="radio" class="bc_axis_control_rb" name="x" value=" <%- data.metadata.field.field2 %> ">Crime Type
+<input type="radio" class="bc_axis_control_rb" name="x" value=" <%- data.metadata.field.field2 %> "><%= data.metadata.params.xtitle2 %>
 </td>
 </tr>
 </table>
@@ -19,4 +19,3 @@ var chartData = <%- JSON.stringify(data) %>;
 </script>
 <script type="text/javascript" src="/javascripts/barChartView.js"></script>
 <script type="text/javascript" src="/javascripts/chartView.js"></script>
-
