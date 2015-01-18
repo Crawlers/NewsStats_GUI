@@ -156,9 +156,9 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 	
 	function drawControlls(){
 	    var field2 = pieChartData.distinctData.field2.sort();
-        var html = '<table><tr><td><b>'+ pieChartData.metadata.alias.field1 +' :</b><input type="hidden" class="pie_chart_cb" value="sdf89fd0">';
+        var html = '<table><tr><td><b>'+ pieChartData.metadata.alias.field1 +' :</b><input type="hidden" name="field" class="pie_chart_cb" value="sdf89fd0">';
 		for (var i in field2) { 
-			html += '</td><td></td><td><input type="checkbox" class="pie_chart_cb" value="' + field2[i] + '" checked="checked">' + field2[i] + '<br>';
+			html += '</td><td></td><td><input type="checkbox" class="pie_chart_cb" name="field" value="' + field2[i] + '" checked="checked">' + field2[i] + '<br>';
 		}
 		html += '</td></tr></table>';
 		$('#pie_chart_control_form').html(html);
