@@ -2,25 +2,26 @@
 $(document).ready(function(){  
 	var url = document.URL;
 	if (url.indexOf('#') == -1){
-		visitUrl.call($('#nav a[href="#home"]')[0]);
+		visitUrl.call("home");
 	} else {
 		var splitedUrl = url.split('#');
 		if (splitedUrl[1] == ""){
-			visitUrl.call($('#nav a[href="#home"]')[0]);
+			visitUrl("home");
 		} else {
-			visitUrl.call($('#nav a[href="#'+splitedUrl[1]+'"]')[0]);
+			visitUrl(splitedUrl[splitedUrl.length-1]);
 		}
 	}
-	
-	$('#nav .url').click(function(){
-		visitUrl.call(this);
-	});
 });
 
-function visitUrl(){
-		var href = this.href.replace('#', '');
+window.onhashchange = function() {
+	var href = location.href;
+	href = href.substr(href.lastIndexOf('#') + 1);
+	visitUrl(href);
+}
+
+function visitUrl(href){
 		$('#nav li').removeClass('current');
-		var currentNode = this;
+		var currentNode = $('a[href="#'+href+'"]')[0];
 		while((currentNode.parentNode).id != "nav"){
 			currentNode = currentNode.parentNode;
 		}
