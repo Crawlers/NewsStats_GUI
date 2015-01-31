@@ -2,7 +2,7 @@
 $(document).ready(function(){  
 	var url = document.URL;
 	if (url.indexOf('#') == -1){
-		visitUrl.call("home");
+		visitUrl("home");
 	} else {
 		var splitedUrl = url.split('#');
 		if (splitedUrl[1] == ""){
