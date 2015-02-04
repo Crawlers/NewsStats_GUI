@@ -45,7 +45,7 @@ var pieChart = $('#pieChartsForEachYear').highcharts({
 		height : 400
 	},
 	title: {
-		text: pieChartData.metadata.params.title2
+		text: ""
 	},
 	tooltip: {
 		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
